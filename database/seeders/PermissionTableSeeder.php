@@ -17,7 +17,11 @@ class PermissionTableSeeder extends Seeder
         $permissions = [
            'admin',
            'leader',
-           'user'
+           'user',
+           'management',
+           'railway',
+           'organization',
+           'department'
         ];
      
         foreach ($permissions as $permission) {
