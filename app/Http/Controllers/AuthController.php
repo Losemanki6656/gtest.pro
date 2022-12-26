@@ -3,6 +3,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\TypeDocument;
+
+use App\Http\Resources\TypeDocumentResource;
 use Validator;
 
 class AuthController extends Controller
@@ -90,11 +93,15 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     protected function createNewToken($token){
+
+        $type_documents = TypeDocument::get();
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'user' => auth()->user(),
+            'type_documents' => TypeDocumentResource::collection($type_documents)
         ]);
     }
 }
