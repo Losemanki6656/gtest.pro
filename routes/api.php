@@ -17,20 +17,17 @@ Route::group([
     'middleware' => 'auth:api'
 ], function ($router) {
     
-   
-
     Route::group([
         'middleware' => [
             'permission:admin'
             ]
         ], function () {
         
-        Route::get('/documents', [DocumentController::class, 'documents']);
+        Route::get('/incoming/documents', [DocumentController::class, 'incoming_messages']);
+        Route::get('/outgoing/documents', [DocumentController::class, 'outgoing_messages']);
+        Route::get('/send-document', [DocumentController::class, 'send_document_get']);
         Route::post('/send-document/{to_user_id}', [DocumentController::class, 'send_document']);
 
     }); 
-
-
-
     
 });
