@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Validator;
 
+use App\Http\Resources\RoleResource;
+use App\Http\Resources\UserResource;
+
 class AuthController extends Controller
 {
     /**
@@ -80,7 +83,10 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function userProfile() {
-        return response()->json(auth()->user());
+
+        $user = new UserResource(User::find(auth()->user()->id));
+
+        return response()->json($user);
     }
     /**
      * Get the token array structure.
@@ -95,7 +101,8 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            // 'user' => auth()->user(),
+            // 'roles' => new RoleResource($this->roles->first())
         ]);
     }
 }

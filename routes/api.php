@@ -22,6 +22,8 @@ Route::group([
             'permission:admin'
             ]
         ], function () {
+
+        Route::get('/user/profile', [AuthController::class, 'userProfile']);
         
         Route::get('/incoming/documents', [DocumentController::class, 'incoming_messages']);
         Route::get('/outgoing/documents', [DocumentController::class, 'outgoing_messages']);
