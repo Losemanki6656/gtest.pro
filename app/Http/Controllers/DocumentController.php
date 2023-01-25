@@ -5,8 +5,11 @@ use App\Models\Document;
 use App\Models\UserOrganization;
 use App\Models\User;
 use App\Models\TypeDocument;
+use App\Models\Organization;
 use App\Http\Resources\TypeDocumentResource;
 use App\Http\Resources\IncomingDocumentCollection;
+
+use App\Http\Resources\SendDocumentOrganizationCollection;
 
 use Illuminate\Http\Request;
 use Auth;
@@ -40,16 +43,23 @@ class DocumentController extends Controller
 
     public function send_document_get()
     {
-        $users = User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'Admin');
+        $organizations = Organization::query()
+            ->when(request('search'), function ( $query, $search) {
+                return $query->where('name', 'LIKE', '%'. $search .'%');
+                
+            })
+            ->with(['users' => function($query) {
+                $query->whereHas(
+                    'roles', function($q){
+                        $q->where('name', 'Admin');
+                    });
             }
-        )->get();
+        ])->paginate(10);
 
         $type_documents = TypeDocument::get();
 
         return response()->json([
-            'users' => $users,
+            'organizations' => new SendDocumentOrganizationCollection($organizations),
             'type_documents' => TypeDocumentResource::collection($type_documents)
         ]);
 

@@ -59,4 +59,9 @@ class User extends Authenticatable implements JWTSubject
     public function userorganization() {
         return $this->hasOne(UserOrganization::class);
     }
+
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class, 'user_organizations');
+    }
 }
