@@ -52,7 +52,7 @@ class DocumentController extends Controller
             'users' => $users,
             'type_documents' => TypeDocumentResource::collection($type_documents)
         ]);
-        
+
     }
 
     public function send_document(Request $request, $to_user_id)
@@ -81,19 +81,19 @@ class DocumentController extends Controller
         {
             if($request->file1) {
                 $fileName1 = time() . $request->file1->getClientOriginalName();
-                Storage::disk('public')->put('files/' . $fileName, File::get($request->file1));
+                Storage::disk('public')->put('files/' . $fileName1, File::get($request->file1));
                 $filePath1 = 'storage/files/' . $fileName1;
             }
-    
+
             if($request->file2) {
                 $fileName2 = time() . $request->file2->getClientOriginalName();
-                Storage::disk('public')->put('files/' . $fileName, File::get($request->file2));
+                Storage::disk('public')->put('files/' . $fileName2, File::get($request->file2));
                 $filePath2 = 'storage/files/' . $fileName2;
             }
-    
+
             if($request->file3) {
                 $fileName3 = time() . $request->file3->getClientOriginalName();
-                Storage::disk('public')->put('files/' . $fileName, File::get($request->file3));
+                Storage::disk('public')->put('files/' . $fileName3, File::get($request->file3));
                 $filePath3 = 'storage/files/' . $fileName3;
             }
 
