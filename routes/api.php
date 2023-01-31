@@ -30,6 +30,12 @@ Route::group([
         Route::get('/send-document', [DocumentController::class, 'send_document_get']);
         Route::post('/send-document/{to_user_id}', [DocumentController::class, 'send_document']);
 
+        Route::get('/add-worker-to-document/{document_id}', [DocumentController::class, 'add_worker_to_document_GET']);
+        Route::post('/add-worker-to-document/{document_id}', [DocumentController::class, 'add_worker_to_document_POST']);
+
+
+
+        Route::get('/cities/filter', [DocumentController::class, 'filter_cities']);
     }); 
     
 });

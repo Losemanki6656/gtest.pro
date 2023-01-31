@@ -6,8 +6,22 @@ use App\Models\UserOrganization;
 use App\Models\User;
 use App\Models\TypeDocument;
 use App\Models\Organization;
+use App\Models\Education;
+use App\Models\Nationality;
+use App\Models\Region;
+use App\Models\City;
+use App\Models\AcademicDegree;
+use App\Models\AcademicTitle;
+
 use App\Http\Resources\TypeDocumentResource;
 use App\Http\Resources\IncomingDocumentCollection;
+
+
+use App\Http\Resources\CityResource;
+use App\Http\Resources\RegionResource;
+use App\Http\Resources\NationalityResource;
+use App\Http\Resources\EducationResource;
+
 
 use App\Http\Resources\SendDocumentOrganizationCollection;
 
@@ -124,7 +138,41 @@ class DocumentController extends Controller
         $newDocument->save();
 
         return response()->json([
-            'message' => 'successfully'
+            'message' => 'successfully',
+            'document_id' => $newDocument->id
+        ]);
+    }
+
+    public function add_worker_to_document_GET($document_id, Request $request)
+    {
+        $educations = Education::get();
+        $regions = Region::get();
+        $nationalities = Nationality::get();
+
+        
+        $academic_degrees = AcademicDegree::get();
+        $academic_titlies = AcademicTitle::get();
+
+        return response()->json([
+            'educations' => EducationResource::collection($educations),
+            'regions' => RegionResource::collection($regions),
+            'nationalities' => NationalityResource::collection($nationalities),
+            'academic_degrees' => $academic_degrees,
+            'academic_titlies' => $academic_titlies
+        ]);
+    }
+
+    public function filter_cities(Request $request)
+    {
+        $cities = City::query()
+            ->when(request('region_id'), function ( $query, $region_id) {
+                return $query->where('region_id', $region_id);
+                
+            })->get();
+
+        return response()->json([
+            'cities' => CityResource::collection($cities)
         ]);
     }
 }
+
