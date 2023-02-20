@@ -27,6 +27,7 @@ class CreateDocumentsTable extends Migration
             $table->bigInteger('to_executor_id')->unsigned()->index()->nullable();
             $table->bigInteger('type_document_id')->unsigned()->index()->nullable();
             $table->date('to_date')->nullable();
+            $table->text('text_message')->nullable();
             $table->text('token_send')->nullable();
             $table->text('token_rec')->nullable();
             $table->boolean('status_send')->default(false);

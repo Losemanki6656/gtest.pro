@@ -25,6 +25,8 @@ Route::group([
 
         Route::get('/user/profile', [AuthController::class, 'userProfile']);
         
+        Route::get('/check-document', [DocumentController::class, 'check_document']);
+
         Route::get('/incoming/documents', [DocumentController::class, 'incoming_messages']);
         Route::get('/outgoing/documents', [DocumentController::class, 'outgoing_messages']);
         Route::get('/send-document', [DocumentController::class, 'send_document_get']);

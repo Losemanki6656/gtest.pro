@@ -41,6 +41,23 @@ class DocumentController extends Controller
         ]);
     }
 
+
+    public function check_document()
+    {
+        $documents = Document::where('send_user_id', auth()->user()->id);
+
+        if(!$documents->count()) {
+            return response()->json([
+                'status' => false
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'documents' => $documents->get()
+            ]);
+        }
+    }
+
     public function outgoing_messages()
     {
         $user = auth()->user()->userorganization;
