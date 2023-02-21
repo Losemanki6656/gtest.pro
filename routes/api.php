@@ -30,7 +30,7 @@ Route::group([
         Route::get('/incoming/documents', [DocumentController::class, 'incoming_messages']);
         Route::get('/outgoing/documents', [DocumentController::class, 'outgoing_messages']);
         Route::get('/send-document', [DocumentController::class, 'send_document_get']);
-        Route::post('/send-document/{to_user_id}', [DocumentController::class, 'send_document']);
+        Route::post('/send-document/preparing/{to_user_id}', [DocumentController::class, 'send_document_post']);
 
         Route::get('/add-worker-to-document/{document_id}', [DocumentController::class, 'add_worker_to_document_GET']);
         Route::post('/add-worker-to-document/{document_id}', [DocumentController::class, 'add_worker_to_document_POST']);

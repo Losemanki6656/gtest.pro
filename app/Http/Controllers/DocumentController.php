@@ -96,7 +96,7 @@ class DocumentController extends Controller
 
     }
 
-    public function send_document(Request $request, $to_user_id)
+    public function send_document_post( $to_user_id, Request $request)
     {
         $validated = $request->validate([
             'to_date' => ['date']
