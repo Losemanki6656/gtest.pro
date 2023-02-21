@@ -16,4 +16,9 @@ class Document extends Model
     public function rec_user() {
         return $this->belongsTo(User::class,'rec_user_id');
     }
+
+    public function executor() {
+        return $this->belongsTo(User::class,'executor_id');
+    }
+
 }

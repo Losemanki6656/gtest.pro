@@ -22,6 +22,7 @@ use App\Http\Resources\RegionResource;
 use App\Http\Resources\NationalityResource;
 use App\Http\Resources\EducationResource;
 
+use App\Http\Resources\DocumentResResource;
 
 use App\Http\Resources\SendDocumentOrganizationCollection;
 
@@ -79,19 +80,14 @@ class DocumentController extends Controller
                 return $query->where('name', 'LIKE', '%'. $search .'%');
                 
             })
-            ->with(['users' => function($query) {
-                $query->whereHas(
-                    'roles', function($q){
-                        $q->where('name', 'Admin');
-                    });
-            }
-        ])->paginate(10);
+            ->with(['users'])->paginate(10);
 
         $type_documents = TypeDocument::get();
 
         return response()->json([
             'organizations' => new SendDocumentOrganizationCollection($organizations),
-            'type_documents' => TypeDocumentResource::collection($type_documents)
+            'type_documents' => TypeDocumentResource::collection($type_documents),
+            
         ]);
 
     }
@@ -150,13 +146,14 @@ class DocumentController extends Controller
         }
 
         $newDocument->type_document_id = $request->type_document_id;
+        $newDocument->comment = $request->comment;
         $newDocument->to_date = $request->to_date;
         $newDocument->status = false;
         $newDocument->save();
 
         return response()->json([
             'message' => 'successfully',
-            'document_id' => $newDocument->id
+            'document_id' => new DocumentResResource($newDocument)
         ]);
     }
 
