@@ -150,6 +150,7 @@ class DocumentController extends Controller
                 Storage::disk('public')->put('files/' . $fileName1, File::get($request->file1));
                 $filePath1 = 'storage/files/' . $fileName1;
                 $newDocument->file1 = $filePath1;
+                $newDocument->to_file1 = $request->file1->getClientOriginalName();
             }
 
             if($request->file2) {
@@ -157,6 +158,7 @@ class DocumentController extends Controller
                 Storage::disk('public')->put('files/' . $fileName2, File::get($request->file2));
                 $filePath2 = 'storage/files/' . $fileName2;
                 $newDocument->file2 = $filePath2;
+                $newDocument->to_file2 = $request->file2->getClientOriginalName();
             }
 
             if($request->file3) {
@@ -164,6 +166,7 @@ class DocumentController extends Controller
                 Storage::disk('public')->put('files/' . $fileName3, File::get($request->file3));
                 $filePath3 = 'storage/files/' . $fileName3;
                 $newDocument->file3 = $filePath3;
+                $newDocument->to_file3 = $request->file3->getClientOriginalName();
             }
 
         } 

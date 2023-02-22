@@ -21,6 +21,8 @@ class DocumentResResource extends JsonResource
             'to_date' => $this->to_date,
             'executor_id' => new UserInfoResource($this->executor),
             'comment' => $this->comment,
+            'file_url' => url(asset($this->file1)),
+            'file_name' => $this->to_file1,
 
         ];
     }
