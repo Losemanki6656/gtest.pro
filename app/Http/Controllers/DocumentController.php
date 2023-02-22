@@ -27,6 +27,8 @@ use App\Http\Resources\DocumentResResource;
 use App\Http\Resources\SendDocumentOrganizationCollection;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use File;
 use Auth;
 
 class DocumentController extends Controller
