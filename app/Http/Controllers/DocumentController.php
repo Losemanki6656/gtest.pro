@@ -77,6 +77,16 @@ class DocumentController extends Controller
 
     public function send_document_get()
     {
+        $documents = Document::where('send_user_id', auth()->user()->id);
+
+        if(!$documents->count()) {
+            $status = false;
+            $documents = [];
+        } else {
+           $status = true;
+           $documents = $documents->get();
+        }
+
         $organizations = Organization::query()
             ->when(request('search'), function ( $query, $search) {
                 return $query->where('name', 'LIKE', '%'. $search .'%');
@@ -86,9 +96,24 @@ class DocumentController extends Controller
 
         $type_documents = TypeDocument::get();
 
+        $educations = Education::get();
+        $regions = Region::get();
+        $nationalities = Nationality::get();
+
+        
+        $academic_degrees = AcademicDegree::get();
+        $academic_titlies = AcademicTitle::get();
+
         return response()->json([
+            'status' => $status,
+            'documents' => DocumentResResource::collection($documents),
             'organizations' => new SendDocumentOrganizationCollection($organizations),
             'type_documents' => TypeDocumentResource::collection($type_documents),
+            'educations' => EducationResource::collection($educations),
+            'regions' => RegionResource::collection($regions),
+            'nationalities' => NationalityResource::collection($nationalities),
+            'academic_degrees' => $academic_degrees,
+            'academic_titlies' => $academic_titlies
             
         ]);
 
@@ -156,7 +181,7 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function add_worker_to_document_GET($document_id, Request $request)
+    public function add_worker_to_document_GET( Request $request)
     {
         $educations = Education::get();
         $regions = Region::get();
