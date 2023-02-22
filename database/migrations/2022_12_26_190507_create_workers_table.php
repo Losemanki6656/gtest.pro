@@ -20,6 +20,8 @@ class CreateWorkersTable extends Migration
             $table->bigInteger('education_id')->unsigned()->index()->nullable();
             $table->bigInteger('region_id')->unsigned()->index()->nullable();
             $table->bigInteger('city_id')->unsigned()->index()->nullable();
+            $table->bigInteger('address_region_id')->unsigned()->index()->nullable();
+            $table->bigInteger('address_city_id')->unsigned()->index()->nullable();
             $table->bigInteger('nationality_id')->unsigned()->index()->nullable();
             $table->bigInteger('academic_degree_id')->unsigned()->index()->nullable();
             $table->bigInteger('academic_title_id')->unsigned()->index()->nullable();
@@ -42,11 +44,13 @@ class CreateWorkersTable extends Migration
             $table->string('comment')->nullable();
             $table->boolean('status_worker')->default(false);
             $table->boolean('status')->default(false);
-            
+
             $table->foreign('document_id')->references('id')->on('documents');
             $table->foreign('education_id')->references('id')->on('education');
             $table->foreign('region_id')->references('id')->on('regions');
             $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('address_region_id')->references('id')->on('regions');
+            $table->foreign('address_city_id')->references('id')->on('cities');
             $table->foreign('nationality_id')->references('id')->on('nationalities');
             $table->foreign('academic_degree_id')->references('id')->on('academic_degrees');
             $table->foreign('academic_title_id')->references('id')->on('academic_titles');
