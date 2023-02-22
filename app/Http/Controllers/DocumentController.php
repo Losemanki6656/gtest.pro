@@ -118,35 +118,32 @@ class DocumentController extends Controller
 
         if($request->file_status)
         {
+            $newDocument->file_status = true;
+
             if($request->file1) {
                 $fileName1 = time() . $request->file1->getClientOriginalName();
                 Storage::disk('public')->put('files/' . $fileName1, File::get($request->file1));
                 $filePath1 = 'storage/files/' . $fileName1;
+                $newDocument->file1 = $filePath1;
             }
 
             if($request->file2) {
                 $fileName2 = time() . $request->file2->getClientOriginalName();
                 Storage::disk('public')->put('files/' . $fileName2, File::get($request->file2));
                 $filePath2 = 'storage/files/' . $fileName2;
+                $newDocument->file2 = $filePath2;
             }
 
             if($request->file3) {
                 $fileName3 = time() . $request->file3->getClientOriginalName();
                 Storage::disk('public')->put('files/' . $fileName3, File::get($request->file3));
                 $filePath3 = 'storage/files/' . $fileName3;
+                $newDocument->file3 = $filePath3;
             }
 
-            $newDocument->file_status = true;
-            $newDocument->file1 = $filePath1;
-            $newDocument->file2 = $filePath2;
-            $newDocument->file3 = $filePath3;
+        } 
 
-        } else {
-
-            $newDocument->comment = $request->comment;
-
-        }
-
+        $newDocument->comment = $request->comment;
         $newDocument->type_document_id = $request->type_document_id;
         $newDocument->comment = $request->comment;
         $newDocument->to_date = $request->to_date;
