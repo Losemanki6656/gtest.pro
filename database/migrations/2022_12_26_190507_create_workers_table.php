@@ -16,7 +16,6 @@ class CreateWorkersTable extends Migration
         Schema::create('workers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('document_id')->unsigned()->index()->nullable();
-
             $table->bigInteger('education_id')->unsigned()->index()->nullable();
             $table->bigInteger('region_id')->unsigned()->index()->nullable();
             $table->bigInteger('city_id')->unsigned()->index()->nullable();
@@ -25,9 +24,19 @@ class CreateWorkersTable extends Migration
             $table->bigInteger('nationality_id')->unsigned()->index()->nullable();
             $table->bigInteger('academic_degree_id')->unsigned()->index()->nullable();
             $table->bigInteger('academic_title_id')->unsigned()->index()->nullable();
+            $table->bigInteger('party_id')->unsigned()->index()->nullable();
+
             $table->string('last_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->boolean('sex')->nullable();
+            $table->text('institut')->nullable();
+            $table->string('speciality')->nullable();
+            $table->string('incent')->nullable();
+
             $table->string('department_name')->nullable();
             $table->string('staff_name')->nullable();
             $table->date('birth_date')->nullable();
@@ -42,6 +51,9 @@ class CreateWorkersTable extends Migration
             $table->string('file2')->nullable();
             $table->string('file3')->nullable();
             $table->string('comment')->nullable();
+            $table->string('deputy');
+            $table->string('military');
+            $table->string('military_rank');
             $table->boolean('status_worker')->default(false);
             $table->boolean('status')->default(false);
 
@@ -54,6 +66,7 @@ class CreateWorkersTable extends Migration
             $table->foreign('nationality_id')->references('id')->on('nationalities');
             $table->foreign('academic_degree_id')->references('id')->on('academic_degrees');
             $table->foreign('academic_title_id')->references('id')->on('academic_titles');
+            $table->foreign('party_id')->references('id')->on('parties');
             $table->timestamps();
         });
     }

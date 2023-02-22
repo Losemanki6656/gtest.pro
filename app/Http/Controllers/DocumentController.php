@@ -13,6 +13,11 @@ use App\Models\City;
 use App\Models\AcademicDegree;
 use App\Models\AcademicTitle;
 
+use App\Models\Language;
+use App\Models\WorkerLanguage;
+use App\Models\DriverLicense;
+use App\Models\WorkerDriverLicense;
+
 use App\Http\Resources\TypeDocumentResource;
 use App\Http\Resources\IncomingDocumentCollection;
 
@@ -203,6 +208,90 @@ class DocumentController extends Controller
         ]);
     }
 
+    public function add_worker_to_document_POST($document_id, Request $request)
+    {
+        $validated = $request->validate([
+            'education_id' => ['required'],
+            'region_id' => ['required'],
+            'city_id' => ['required'],
+            'nationality_id' => ['required'],
+            'academic_degree_id' => ['required'],
+            'academic_title_id' => ['required'],
+            'last_name' => ['required'],
+            'first_name' => ['required'],
+            'middle_name' => ['required'],
+            'department_name' => ['required'],
+            'staff_name' => ['required'],
+            'birth_date' => ['required','date'],
+            'rail_date' => ['required','date'],
+            'rail_status' => ['required'],
+            'passport' => ['required'],
+            'jshshir' => ['required'],
+            'address_region_id' => ['required'],
+            'address_city_id' => ['required'],
+            'languages' => ['required','array'],
+            'photo' => ['required','file'],
+            'phone' => ['required'],
+            'sex' => ['required','boolean'],
+            'driver_licenses' => ['required'],
+        ]);
+
+        $worker = new Worker();
+        $worker->document_id = $document_id;
+        $worker->education_id = $request->education_id;
+        $worker->region_id = $request->region_id;
+        $worker->city_id = $request->city_id;
+        $worker->address_region_id = $request->address_region_id;
+        $worker->address_city_id = $request->address_city_id;
+        $worker->nationality_id = $request->nationality_id;
+        $worker->academic_degree_id = $request->academic_degree_id;
+        $worker->academic_title_id = $request->academic_title_id;
+        $worker->party_id = $request->party_id;
+        $worker->last_name = $request->last_name;
+        $worker->first_name = $request->first_name;
+        $worker->middle_name = $request->middle_name;
+        
+        if($request->photo) {
+            $photo = time() . $request->photo->getClientOriginalName();
+            Storage::disk('public')->put('worker-photos/' . $photo, File::get($request->photo));
+            $path = 'storage/files/' . $photo;
+            $worker->photo = $path;
+        }
+
+        $worker->phone = $request->phone;
+        $worker->address = $request->address;
+        $worker->sex = $request->sex;
+        $worker->institut = $request->institut;
+        $worker->speciality = $request->speciality;
+        $worker->incent = $request->incent;
+        $worker->department_name = $request->department_name;
+        $worker->staff_name = $request->staff_name;
+        $worker->birth_date = $request->birth_date;
+        $worker->rail_date = $request->rail_date;
+        $worker->rail_status = $request->rail_status;
+        $worker->old_job_name = $request->old_job_name;
+        $worker->del_rail_comment = $request->del_rail_comment;
+        $worker->passport = $request->passport;
+        $worker->jshshir = $request->jshshir;
+        $worker->deputy = $request->deputy;
+        $worker->military = $request->military;
+        $worker->military_rank = $request->military_rank;
+
+        if($request->file1) {
+
+            $file1 = time() . $request->file1->getClientOriginalName();
+            Storage::disk('public')->put('worker-photos/' . $file1, File::get($request->file1));
+            $path_file1 = 'storage/files/' . $file1;
+            $worker->file1 = $path_file1;
+        }
+
+        $worker->other_doc = $request->comment;
+        $worker->save();
+
+        return 1;
+
+    }
+
     public function filter_cities(Request $request)
     {
         $cities = City::query()
@@ -214,6 +303,18 @@ class DocumentController extends Controller
         return response()->json([
             'cities' => CityResource::collection($cities)
         ]);
+    }
+
+    public function admin_migrate()
+    {
+           
+        Schema::disableForeignKeyConstraints();
+
+        Artisan::call('migrate');
+        Schema::enableForeignKeyConstraints();
+
+        return 1;
+
     }
 }
 

@@ -34,10 +34,21 @@ Route::group([
 
         Route::get('/add-worker-to-document', [DocumentController::class, 'add_worker_to_document_GET']);
         Route::post('/add-worker-to-document/{document_id}', [DocumentController::class, 'add_worker_to_document_POST']);
-
+        
 
 
         Route::get('/cities/filter', [DocumentController::class, 'filter_cities']);
+
+        
+        Route::get('/admin/migrate', function () {
+   
+                Schema::disableForeignKeyConstraints();
+            
+                Artisan::call('migrate --force');
+                Schema::enableForeignKeyConstraints();
+                return 1;
+            
+            });
     }); 
     
 });
