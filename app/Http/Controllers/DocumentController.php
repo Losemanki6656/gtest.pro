@@ -301,7 +301,7 @@ class DocumentController extends Controller
         return response()->json([
             'message' => 'Successfully',
             'worker' => $worker,
-            'languages' => $request->languages
+            'languages' => explode(',',$request->languages)
         ]);
     }
 
