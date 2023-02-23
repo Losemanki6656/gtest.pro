@@ -276,9 +276,12 @@ class DocumentController extends Controller
         $worker->staff_name = $request->staff_name;
         $worker->birth_date = $request->birth_date;
         $worker->rail_date = $request->rail_date;
-        $worker->rail_status = $request->rail_status;
-        $worker->old_job_name = $request->old_job_name;
-        $worker->del_rail_comment = $request->del_rail_comment;
+        
+        if($request->rail_status) {
+            $worker->rail_status = true;
+            $worker->old_job_name = $request->old_job_name;
+            $worker->del_rail_comment = $request->del_rail_comment;
+        }
         $worker->passport = $request->passport;
         $worker->jshshir = $request->jshshir;
         $worker->deputy = $request->deputy;
