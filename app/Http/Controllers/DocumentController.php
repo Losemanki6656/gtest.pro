@@ -109,6 +109,7 @@ class DocumentController extends Controller
         $academic_degrees = AcademicDegree::get();
         $academic_titlies = AcademicTitle::get();
         $languages = Language::get();
+        $driver_licenses = DriverLicense::get();
 
         return response()->json([
             'status' => $status,
@@ -120,7 +121,8 @@ class DocumentController extends Controller
             'nationalities' => NationalityResource::collection($nationalities),
             'academic_degrees' => $academic_degrees,
             'academic_titlies' => $academic_titlies,
-            'languages' => $languages
+            'languages' => $languages,
+            'driver_licenses' => $driver_licenses
             
         ]);
 
@@ -146,7 +148,7 @@ class DocumentController extends Controller
         $newDocument->rec_user_id = $to_user_id;
 
         if($request->executor_id)
-        $newDocument->executor_id = $user->user_id;
+            $newDocument->executor_id = $user->user_id;
 
         if($request->file_status)
         {
@@ -290,7 +292,7 @@ class DocumentController extends Controller
         $worker->other_doc = $request->comment;
         $worker->save();
 
-        return 1;
+        return response()->json($request->all());
 
     }
 
