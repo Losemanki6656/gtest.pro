@@ -236,7 +236,7 @@ class DocumentController extends Controller
             'jshshir' => ['required'],
             'address_region_id' => ['required'],
             'address_city_id' => ['required'],
-            'languages' => ['required','array'],
+            'languages' => ['required'],
             'photo' => ['required','file'],
             'phone' => ['required'],
             'sex' => ['required','boolean'],
@@ -296,7 +296,8 @@ class DocumentController extends Controller
 
         return response()->json([
             'message' => 'Successfully',
-            'worker' => $worker
+            'worker' => $worker,
+            'languages' => implode(',', $request->languages)
         ]);
     }
 
