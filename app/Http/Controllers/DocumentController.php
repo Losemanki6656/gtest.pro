@@ -14,6 +14,7 @@ use App\Models\AcademicDegree;
 use App\Models\AcademicTitle;
 
 use App\Models\Language;
+use App\Models\Party;
 use App\Models\WorkerLanguage;
 use App\Models\DriverLicense;
 use App\Models\WorkerDriverLicense;
@@ -110,6 +111,7 @@ class DocumentController extends Controller
         $academic_titlies = AcademicTitle::get();
         $languages = Language::get();
         $driver_licenses = DriverLicense::get();
+        $parties = Party::get();
 
         return response()->json([
             'status' => $status,
@@ -123,6 +125,7 @@ class DocumentController extends Controller
             'academic_titlies' => $academic_titlies,
             'languages' => $languages,
             'driver_licenses' => $driver_licenses
+            'parties' => $parties
             
         ]);
 
