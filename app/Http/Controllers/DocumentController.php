@@ -285,7 +285,6 @@ class DocumentController extends Controller
         $worker->military_rank = $request->military_rank;
 
         if($request->file1) {
-
             $file1 = time() . $request->file1->getClientOriginalName();
             Storage::disk('public')->put('worker-photos/' . $file1, File::get($request->file1));
             $path_file1 = 'storage/files/' . $file1;
@@ -295,8 +294,10 @@ class DocumentController extends Controller
         $worker->other_doc = $request->comment;
         $worker->save();
 
-        return response()->json($request->all());
-
+        return response()->json([
+            'message' => 'Successfully',
+            'worker' => $worker
+        ]);
     }
 
     public function filter_cities(Request $request)
@@ -313,15 +314,11 @@ class DocumentController extends Controller
     }
 
     public function admin_migrate()
-    {
-           
+    {     
         Schema::disableForeignKeyConstraints();
-
         Artisan::call('migrate');
         Schema::enableForeignKeyConstraints();
-
         return 1;
-
     }
 }
 
