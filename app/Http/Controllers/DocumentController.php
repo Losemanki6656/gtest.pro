@@ -15,6 +15,7 @@ use App\Models\AcademicTitle;
 
 use App\Models\Language;
 use App\Models\Party;
+use App\Models\Worker;
 use App\Models\WorkerLanguage;
 use App\Models\DriverLicense;
 use App\Models\WorkerDriverLicense;
