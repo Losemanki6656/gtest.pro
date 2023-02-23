@@ -311,7 +311,7 @@ class DocumentController extends Controller
         {
             $license = new WorkerDriverLicense();
             $license->worker_id = $worker->id;
-            $license->driver_license = (int)$value;
+            $license->driver_license_id = (int)$value;
             $license->save();
         }
 
@@ -326,7 +326,7 @@ class DocumentController extends Controller
         $worker =  Worker::find($worker_id);
 
         return response()->json([
-            'worker' => $worker
+            'worker' => new WorkerResource($worker)
         ]);
     }
 
@@ -350,7 +350,7 @@ class DocumentController extends Controller
         Schema::disableForeignKeyConstraints();
         Artisan::call('migrate');
         Schema::enableForeignKeyConstraints();
-        
+
         return 1;
     }
 }

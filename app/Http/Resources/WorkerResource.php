@@ -14,6 +14,36 @@ class WorkerResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'document_id ' => $this->document_id,
+            'education_id ' => $this->education_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+            'region_id ' => $this->region_id,
+        ];
     }
 }
