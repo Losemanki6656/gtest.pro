@@ -108,6 +108,7 @@ class DocumentController extends Controller
         
         $academic_degrees = AcademicDegree::get();
         $academic_titlies = AcademicTitle::get();
+        $languages = Language::get();
 
         return response()->json([
             'status' => $status,
@@ -118,7 +119,8 @@ class DocumentController extends Controller
             'regions' => RegionResource::collection($regions),
             'nationalities' => NationalityResource::collection($nationalities),
             'academic_degrees' => $academic_degrees,
-            'academic_titlies' => $academic_titlies
+            'academic_titlies' => $academic_titlies,
+            'languages' => $languages
             
         ]);
 
