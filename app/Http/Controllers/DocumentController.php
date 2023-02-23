@@ -124,7 +124,7 @@ class DocumentController extends Controller
             'academic_degrees' => $academic_degrees,
             'academic_titlies' => $academic_titlies,
             'languages' => $languages,
-            'driver_licenses' => $driver_licenses
+            'driver_licenses' => $driver_licenses,
             'parties' => $parties
             
         ]);
