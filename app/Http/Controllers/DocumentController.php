@@ -28,6 +28,7 @@ use App\Http\Resources\CityResource;
 use App\Http\Resources\RegionResource;
 use App\Http\Resources\NationalityResource;
 use App\Http\Resources\EducationResource;
+use App\Http\Resources\WorkerResource;
 
 use App\Http\Resources\DocumentResResource;
 
@@ -234,7 +235,7 @@ class DocumentController extends Controller
             'rail_date' => ['required','date'],
             'rail_status' => ['required'],
             'passport' => ['required'],
-            'jshshir' => ['required'],
+            'jshshir' => ['required','unique:workers'],
             'address_region_id' => ['required'],
             'address_city_id' => ['required'],
             'languages' => ['required'],
@@ -298,12 +299,38 @@ class DocumentController extends Controller
         $worker->other_doc = $request->comment;
         $worker->save();
 
+        foreach (explode(',', $request->languages) as $key => $value)
+        {
+            $lang = new WorkerLanguage();
+            $lang->worker_id = $worker->id;
+            $lang->language_id = (int)$value;
+            $lang->save();
+        }
+
+        foreach (explode(',', $request->driver_licenses) as $key => $value)
+        {
+            $license = new WorkerDriverLicense();
+            $license->worker_id = $worker->id;
+            $license->driver_license = (int)$value;
+            $license->save();
+        }
+
         return response()->json([
             'message' => 'Successfully',
-            'worker' => $worker,
-            'languages' => explode(',',$request->languages)
+            'worker_id' => $worker->id
         ]);
     }
+
+    public function update_worker_GET($worker_id)
+    {
+        $worker =  Worker::find($worker_id);
+
+        return response()->json([
+            'worker' => $worker
+        ]);
+    }
+
+
 
     public function filter_cities(Request $request)
     {
@@ -323,6 +350,7 @@ class DocumentController extends Controller
         Schema::disableForeignKeyConstraints();
         Artisan::call('migrate');
         Schema::enableForeignKeyConstraints();
+        
         return 1;
     }
 }
