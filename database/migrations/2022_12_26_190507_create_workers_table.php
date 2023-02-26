@@ -51,9 +51,9 @@ class CreateWorkersTable extends Migration
             $table->string('file2')->nullable();
             $table->string('file3')->nullable();
             $table->string('comment')->nullable();
-            $table->string('deputy');
-            $table->string('military');
-            $table->string('military_rank');
+            $table->string('deputy')->nullable();
+            $table->string('military')->nullable();
+            $table->string('military_rank')->nullable();
             $table->boolean('status_worker')->default(false);
             $table->boolean('status')->default(false);
 

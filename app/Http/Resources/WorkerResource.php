@@ -16,7 +16,7 @@ class WorkerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'document_id' => $this->document,
+            // 'document_id' => $this->document,
             'education_id' => $this->education,
             'region_id' => $this->region,
             'city_id' => $this->city_id,

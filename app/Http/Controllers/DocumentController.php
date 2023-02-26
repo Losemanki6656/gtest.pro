@@ -260,7 +260,7 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function add_worker_to_document_POST($document_id, Request $request)
+    public function add_worker_to_document_POST(Request $request)
     {
         $validated = $request->validate([
             'education_id' => ['required'],
@@ -288,60 +288,11 @@ class DocumentController extends Controller
             'driver_licenses' => ['required'],
         ]);
 
-        $worker = new Worker();
-        $worker->document_id = $document_id;
-        $worker->education_id = $request->education_id;
-        $worker->region_id = $request->region_id;
-        $worker->city_id = $request->city_id;
-        $worker->address_region_id = $request->address_region_id;
-        $worker->address_city_id = $request->address_city_id;
-        $worker->nationality_id = $request->nationality_id;
-        $worker->academic_degree_id = $request->academic_degree_id;
-        $worker->academic_title_id = $request->academic_title_id;
-        $worker->party_id = $request->party_id;
-        $worker->last_name = $request->last_name;
-        $worker->first_name = $request->first_name;
-        $worker->middle_name = $request->middle_name;
-        
-        if($request->photo) {
-            $photo = time() . $request->photo->getClientOriginalName();
-            Storage::disk('public')->put('worker-photos/' . $photo, File::get($request->photo));
-            $path = 'storage/files/' . $photo;
-            $worker->photo = $path;
-        }
+        $worker = Worker::create($request->all());
 
-        $worker->phone = $request->phone;
-        $worker->address = $request->address;
-        $worker->sex = $request->sex;
-        $worker->institut = $request->institut;
-        $worker->speciality = $request->speciality;
-        $worker->incent = $request->incent;
-        $worker->department_name = $request->department_name;
-        $worker->staff_name = $request->staff_name;
-        $worker->birth_date = $request->birth_date;
-        $worker->rail_date = $request->rail_date;
-        
-        if($request->rail_status) {
-            $worker->rail_status = true;
-            $worker->old_job_name = $request->old_job_name;
-            $worker->del_rail_comment = $request->del_rail_comment;
-        }
-        $worker->passport = $request->passport;
-        $worker->jshshir = $request->jshshir;
-        $worker->deputy = $request->deputy;
-        $worker->military = $request->military;
-        $worker->military_rank = $request->military_rank;
+        return 1;
 
-        if($request->file1) {
-            $file1 = time() . $request->file1->getClientOriginalName();
-            Storage::disk('public')->put('worker-photos/' . $file1, File::get($request->file1));
-            $path_file1 = 'storage/files/' . $file1;
-            $worker->file1 = $path_file1;
-        }
-
-        $worker->other_doc = $request->comment;
-        $worker->save();
-
+        if($request->languages)
         foreach (explode(',', $request->languages) as $key => $value)
         {
             $lang = new WorkerLanguage();
@@ -350,6 +301,7 @@ class DocumentController extends Controller
             $lang->save();
         }
 
+        if($request->driver_licenses)
         foreach (explode(',', $request->driver_licenses) as $key => $value)
         {
             $license = new WorkerDriverLicense();
@@ -364,6 +316,75 @@ class DocumentController extends Controller
         ]);
     }
 
+    public function update_worker_POST(Worker $worker, Request $request)
+    {
+        // $validated = $request->validate([
+        //     'education_id' => ['required'],
+        //     'region_id' => ['required'],
+        //     'city_id' => ['required'],
+        //     'nationality_id' => ['required'],
+        //     'academic_degree_id' => ['required'],
+        //     'academic_title_id' => ['required'],
+        //     'last_name' => ['required'],
+        //     'first_name' => ['required'],
+        //     'middle_name' => ['required'],
+        //     'department_name' => ['required'],
+        //     'staff_name' => ['required'],
+        //     'birth_date' => ['required','date'],
+        //     'rail_date' => ['required','date'],
+        //     'rail_status' => ['required'],
+        //     'passport' => ['required'],
+        //     'jshshir' => ['required','unique:workers'],
+        //     'address_region_id' => ['required'],
+        //     'address_city_id' => ['required'],
+        //     'languages' => ['required'],
+        //     'photo' => ['required','file'],
+        //     'phone' => ['required'],
+        //     'sex' => ['required','boolean'],
+        //     'driver_licenses' => ['required'],
+        // ]);
+
+        $worker->update($request->all());
+
+        if($request->languages)
+        foreach (explode(',', $request->languages) as $key => $value)
+        {
+            WorkerLanguage::where('worker_id', $worker->id)->delete();
+            $lang = new WorkerLanguage();
+            $lang->worker_id = $worker->id;
+            $lang->language_id = (int)$value;
+            $lang->save();
+        }
+
+        if($request->driver_licenses)
+        foreach (explode(',', $request->driver_licenses) as $key => $value)
+        {
+            WorkerDriverLicense::where('worker_id', $worker->id)->delete();
+            $license = new WorkerDriverLicense();
+            $license->worker_id = $worker->id;   
+            $license->driver_license_id = (int)$value;
+            $license->save();
+        }
+
+        return response()->json([
+            'message' => 'Successfully Updated',
+            'worker_id' => $worker->id
+        ]);
+    }
+
+    public function delete_worker(Worker $worker)
+    {
+        WorkerLanguage::where('worker_id', $worker->id)->delete();
+        WorkerDriverLicense::where('worker_id', $worker->id)->delete();
+
+        $worker->delete();
+
+        return response()->json([
+            'message' => 'Successfully Deleted'
+        ]);
+    }
+
+
     public function update_worker_GET($worker_id)
     {
         $worker =  Worker::find($worker_id);
@@ -372,8 +393,6 @@ class DocumentController extends Controller
             'worker' => new WorkerResource($worker)
         ]);
     }
-
-
 
     public function filter_cities(Request $request)
     {
@@ -397,4 +416,5 @@ class DocumentController extends Controller
         return 1;
     }
 }
+
 

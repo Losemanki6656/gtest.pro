@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\HasUploadFields;
+use \Venturecraft\Revisionable\RevisionableTrait;
 
 class Worker extends Model
 {
     use HasFactory;
+    use HasUploadFields;
+
+    protected $guarded = ['id'];
 
     public function languages()
     {
@@ -49,5 +54,36 @@ class Worker extends Model
 
     public function party() {
         return $this->belongsTo(Party::class);
+    }
+
+    public function setPhotoAttribute($value)
+    {
+        if($value == null)  $this->setPhotoAttribute = ''; 
+        else 
+        {
+            $attribute_name = "photo";
+            $disk = "public";
+            $destination_path = 'worker-photos'; 
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+        }
+    }
+
+    public function setFile1Attribute($value)
+    {
+        if($value == null)  $this->setPhotoAttribute = ''; 
+        else 
+        {
+            $attribute_name = "file1";
+            $disk = "public";
+            $destination_path = 'worker-files'; 
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+        }
+    }
+
+    public function setRailStatusAttribute($value)
+    {
+        if($value) {
+            $this->attributes['rail_status'] = true;
+        }
     }
 }
