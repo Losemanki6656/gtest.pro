@@ -60,13 +60,10 @@ Route::group([
         
         
         Route::get('/admin/migrate', function () {
-   
                 Schema::disableForeignKeyConstraints();
-            
                 Artisan::call('migrate --force');
                 Schema::enableForeignKeyConstraints();
-                return 1;
-            
+                return true;
             });
     }); 
     
