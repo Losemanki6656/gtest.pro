@@ -34,6 +34,7 @@ class WorkerResource extends JsonResource
             'del_rail_comment' => $this->del_rail_comment,
             'passport' => $this->passport,
             'jshshir' => $this->jshshir,
+            'address' => $this->address,
             'other_doc' => $this->other_doc,
             'file1' => $this->file1,
             'file2' => $this->file2,
