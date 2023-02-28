@@ -65,7 +65,9 @@ class DocumentController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'documents' => $documents->get()
+                'documents' => DocumentResResource::collection( 
+                    $documents->get() 
+                )
             ]);
         }
     }
