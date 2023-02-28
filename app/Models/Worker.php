@@ -40,6 +40,14 @@ class Worker extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function address_region() {
+        return $this->belongsTo(Region::class,'address_region_id');
+    }
+
+    public function address_city() {
+        return $this->belongsTo(City::class, 'address_city_id');
+    }
+
     public function nationality() {
         return $this->belongsTo(Nationality::class);
     }

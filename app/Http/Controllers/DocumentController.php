@@ -299,22 +299,22 @@ class DocumentController extends Controller
         return 1;
 
         if($request->languages)
-        foreach (explode(',', $request->languages) as $key => $value)
-        {
-            $lang = new WorkerLanguage();
-            $lang->worker_id = $worker->id;
-            $lang->language_id = (int)$value;
-            $lang->save();
-        }
+            foreach (explode(',', $request->languages) as $key => $value)
+            {
+                $lang = new WorkerLanguage();
+                $lang->worker_id = $worker->id;
+                $lang->language_id = (int)$value;
+                $lang->save();
+            }
 
         if($request->driver_licenses)
-        foreach (explode(',', $request->driver_licenses) as $key => $value)
-        {
-            $license = new WorkerDriverLicense();
-            $license->worker_id = $worker->id;
-            $license->driver_license_id = (int)$value;
-            $license->save();
-        }
+            foreach (explode(',', $request->driver_licenses) as $key => $value)
+            {
+                $license = new WorkerDriverLicense();
+                $license->worker_id = $worker->id;
+                $license->driver_license_id = (int)$value;
+                $license->save();
+            }
 
         return response()->json([
             'message' => 'Successfully',
@@ -393,7 +393,7 @@ class DocumentController extends Controller
 
     public function update_worker_GET($worker_id)
     {
-        $worker =  Worker::with(['languages','driver_licensies'])->find($worker_id);
+        $worker =  Worker::with(['languages','driver_licensies','address_region','address_city'])->find($worker_id);
 
         return response()->json([
             'worker' => new WorkerResource($worker)
