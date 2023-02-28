@@ -62,7 +62,7 @@ class DocumentController extends Controller
 
     public function check_document()
     {
-        $documents = Document::where('send_user_id', auth()->user()->id);
+        $documents = Document::where('status_send', false)->where('send_user_id', auth()->user()->id);
 
         if(!$documents->count()) {
             return response()->json([
@@ -94,7 +94,7 @@ class DocumentController extends Controller
 
     public function send_document_get()
     {
-        $documents = Document::where('send_user_id', auth()->user()->id);
+        $documents = Document::where('status_send', false)->where('send_user_id', auth()->user()->id);
 
         if(!$documents->count()) {
             $status = false;
@@ -141,9 +141,13 @@ class DocumentController extends Controller
 
     }
 
-    public function end_document($document_id,Request $request)
-    {
-      
+    public function end_document(Document $document,Request $request)
+    {   
+        $document->update($request->all());
+
+        return response()->json([
+            'message' => 'Successfully updated'
+        ]);
     }
 
     public function send_document_ID($document_id)
