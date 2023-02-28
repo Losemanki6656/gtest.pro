@@ -47,7 +47,8 @@ class WorkerResource extends JsonResource
             'military' => $this->military,
             'military_rank' => $this->military_rank,
             'languages' => $this->languages,
-            'driver_licensies' => $this->driver_licensies
+            'driver_licensies' => $this->driver_licensies,
+            'sex' => $this->sex
         ];
     }
 }
