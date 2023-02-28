@@ -16,7 +16,7 @@ class DocumentWorkerGetResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'photo' => url('storage/' . asset($this->photo))
+            'photo' => url(asset('storage/' . $this->photo))
         ];
     }
 }
