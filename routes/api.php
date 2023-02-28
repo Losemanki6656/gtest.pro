@@ -42,7 +42,7 @@ Route::group([
 
         Route::post('/add-worker-to-document', [DocumentController::class, 'add_worker_to_document_POST']);
         Route::get('/worker/{worker_id}', [DocumentController::class, 'update_worker_GET']);
-        Route::post('/worker/{worker}/update', [DocumentController::class, 'update_worker_POST']);
+        Route::put('/worker/{worker}/update', [DocumentController::class, 'update_worker_POST']);
         Route::delete('/worker/{worker}/delete', [DocumentController::class, 'delete_worker']);
 
         
