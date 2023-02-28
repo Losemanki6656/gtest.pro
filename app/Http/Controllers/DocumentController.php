@@ -33,6 +33,9 @@ use App\Http\Resources\WorkerResource;
 
 use App\Http\Resources\LanguageResource;
 use App\Http\Resources\DriverLicenseResource;
+use App\Http\Resources\AcademicDegreeResource;
+use App\Http\Resources\AcademicTitleResource;
+use App\Http\Resources\PartyResource;
 
 use App\Http\Resources\DocumentResResource;
 
