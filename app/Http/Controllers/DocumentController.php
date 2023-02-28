@@ -135,7 +135,7 @@ class DocumentController extends Controller
 
     public function send_document_ID($document_id)
     {
-        if(!$document_id) {
+        if($document_id == "null") {
             $status = false;
             $document = null;
             $workers = null;
