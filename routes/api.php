@@ -33,7 +33,7 @@ Route::group([
 
         Route::get('/incoming/documents', [DocumentController::class, 'incoming_messages']);
         Route::get('/outgoing/documents', [DocumentController::class, 'outgoing_messages']);
-        // Route::get('/send-document', [DocumentController::class, 'send_document_get']);
+
         Route::get('/send-document/{document_id}', [DocumentController::class, 'send_document_ID']);
 
         Route::post('/send-document/preparing/{to_user_id}', [DocumentController::class, 'send_document_post']);
@@ -57,7 +57,7 @@ Route::group([
         Route::put('/worker/relatives/{worker_relative}/update', [WorkerController::class, 'update_relative']);
         Route::delete('/worker/relatives/{worker_relative}/delete', [WorkerController::class, 'delete_relative']);
 
-
+        
         
         Route::get('/admin/migrate', function () {
    

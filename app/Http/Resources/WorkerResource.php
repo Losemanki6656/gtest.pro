@@ -19,7 +19,7 @@ class WorkerResource extends JsonResource
             // 'document_id' => $this->document,
             'education_id' => $this->education,
             'region_id' => $this->region,
-            'city_id' => $this->city_id,
+            'city_id' => $this->city,
             'nationality_id' => $this->nationality,
             'academic_degree_id' => $this->academic_degree,
             'academic_title_id' => $this->academic_title,
