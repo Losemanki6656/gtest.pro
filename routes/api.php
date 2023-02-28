@@ -38,7 +38,7 @@ Route::group([
 
         Route::post('/send-document/preparing/{to_user_id}', [DocumentController::class, 'send_document_post']);
 
-        // Route::put('/document/{document_id}', [DocumentController::class, 'end_document']);
+        Route::put('/send-document/status/{document_id}', [DocumentController::class, 'end_document']);
 
         Route::get('/add-worker-to-document', [DocumentController::class, 'add_worker_to_document_GET']);
 

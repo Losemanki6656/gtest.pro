@@ -141,6 +141,11 @@ class DocumentController extends Controller
 
     }
 
+    public function end_document($document_id,Request $request)
+    {
+      
+    }
+
     public function send_document_ID($document_id)
     {
         if($document_id == "0") {

@@ -28,6 +28,7 @@ class WorkerResource extends JsonResource
             'last_name' => $this->last_name,
             'first_name' => $this->first_name,
             'middle_name' => $this->middle_name,
+            'department_name' => $this->department_name,
             'staff_name' => $this->staff_name,
             'birth_date' => $this->birth_date,
             'rail_date' => $this->rail_date,
