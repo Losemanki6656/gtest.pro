@@ -296,8 +296,6 @@ class DocumentController extends Controller
 
         $worker = Worker::create($request->all());
 
-        return 1;
-
         if($request->languages)
             foreach (explode(',', $request->languages) as $key => $value)
             {

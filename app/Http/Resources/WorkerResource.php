@@ -16,7 +16,7 @@ class WorkerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            // 'document_id' => $this->document,
+            'photo' => url(asset($this->photo)),
             'education_id' => $this->education,
             'region_id' => $this->region,
             'city_id' => $this->city,
@@ -38,7 +38,7 @@ class WorkerResource extends JsonResource
             'jshshir' => $this->jshshir,
             'address' => $this->address,
             'other_doc' => $this->other_doc,
-            'file1' => $this->file1,
+            'file1' => url(asset($this->file1)),
             'file2' => $this->file2,
             'file3' => $this->file3,
             'comment' => $this->comment,
