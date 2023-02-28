@@ -393,7 +393,7 @@ class DocumentController extends Controller
 
     public function update_worker_GET($worker_id)
     {
-        $worker =  Worker::find($worker_id);
+        $worker =  Worker::with(['languages','driver_licensies'])->find($worker_id);
 
         return response()->json([
             'worker' => new WorkerResource($worker)
