@@ -84,7 +84,7 @@ class DocumentController extends Controller
 
         if(request('per_page')) $per_page = request('per_page'); else $per_page = 10;
 
-        $documents = Document::where('send_user_id',$user->user_id)
+        $documents = Document::where('status_send', true)->where('send_user_id',$user->user_id)
             ->with(['rec_user','type_document'])->paginate($per_page);
 
         return response()->json([
