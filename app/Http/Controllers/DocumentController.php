@@ -135,7 +135,15 @@ class DocumentController extends Controller
 
     public function send_document_ID($document_id)
     {
-        $document = Document::find($document_id);
+        if(!$document_id) {
+            $status = false;
+            $document = null;
+            $workers = null;
+        } else {
+           $status = true;
+           $document = new DocumentResResource(Document::find($document_id));
+           $workers = DocumentWorkerGetResource::collection( Worker::where('document_id', $document_id)->get() );
+        }
 
         $organizations = Organization::query()
             ->when(request('search'), function ( $query, $search) {
@@ -143,23 +151,20 @@ class DocumentController extends Controller
                 
             })
             ->with(['users'])->paginate(10);
-
         $type_documents = TypeDocument::get();
-
         $educations = Education::get();
         $regions = Region::get();
         $nationalities = Nationality::get();
-
-        
         $academic_degrees = AcademicDegree::get();
         $academic_titlies = AcademicTitle::get();
         $languages = Language::get();
         $driver_licenses = DriverLicense::get();
         $parties = Party::get();
-        $workers = Worker::where('document_id', $document_id)->get();
 
         return response()->json([
-            'documents' => new DocumentResResource($document),
+            'status' => $status,
+            'document' => $document,
+            'workers' => $workers,
             'organizations' => new SendDocumentOrganizationCollection($organizations),
             'type_documents' => TypeDocumentResource::collection($type_documents),
             'educations' => EducationResource::collection($educations),
@@ -169,8 +174,7 @@ class DocumentController extends Controller
             'academic_titlies' => $academic_titlies,
             'languages' => $languages,
             'driver_licenses' => $driver_licenses,
-            'parties' => $parties,
-            'workers' => DocumentWorkerGetResource::collection($workers)
+            'parties' => $parties
             
         ]);
 
