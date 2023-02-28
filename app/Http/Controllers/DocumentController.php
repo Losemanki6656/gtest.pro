@@ -31,6 +31,9 @@ use App\Http\Resources\NationalityResource;
 use App\Http\Resources\EducationResource;
 use App\Http\Resources\WorkerResource;
 
+use App\Http\Resources\LanguageResource;
+use App\Http\Resources\DriverLicenseResource;
+
 use App\Http\Resources\DocumentResResource;
 
 use App\Http\Resources\SendDocumentOrganizationCollection;
@@ -172,12 +175,11 @@ class DocumentController extends Controller
             'educations' => EducationResource::collection($educations),
             'regions' => RegionResource::collection($regions),
             'nationalities' => NationalityResource::collection($nationalities),
-            'academic_degrees' => $academic_degrees,
-            'academic_titlies' => $academic_titlies,
-            'languages' => $languages,
-            'driver_licenses' => $driver_licenses,
-            'parties' => $parties
-            
+            'academic_degrees' => AcademicDegreeResource::collection($academic_degrees),
+            'academic_titlies' => AcademicTitleResource::collection($academic_titlies),
+            'languages' => LanguageResource::collection($languages),
+            'driver_licenses' => DriverLicenseResource::collection($driver_licenses),
+            'parties' => PartyResource::collection($parties)
         ]);
 
     }
