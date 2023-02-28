@@ -49,6 +49,7 @@ class WorkerResource extends JsonResource
             'institut' => $this->institut,
             'speciality' => $this->speciality,
             'phone' => $this->phone,
+            'incent' => $this->incent,
             'languages' => $this->languages,
             'driver_licensies' => $this->driver_licensies,
             'sex' => $this->sex
