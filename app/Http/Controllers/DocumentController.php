@@ -222,21 +222,21 @@ class DocumentController extends Controller
                 $newDocument->to_file1 = $request->file1->getClientOriginalName();
             }
 
-            if($request->file2) {
-                $fileName2 = time() . $request->file2->getClientOriginalName();
-                Storage::disk('public')->put('files/' . $fileName2, File::get($request->file2));
-                $filePath2 = 'storage/files/' . $fileName2;
-                $newDocument->file2 = $filePath2;
-                $newDocument->to_file2 = $request->file2->getClientOriginalName();
-            }
+            // if($request->file2) {
+            //     $fileName2 = time() . $request->file2->getClientOriginalName();
+            //     Storage::disk('public')->put('files/' . $fileName2, File::get($request->file2));
+            //     $filePath2 = 'storage/files/' . $fileName2;
+            //     $newDocument->file2 = $filePath2;
+            //     $newDocument->to_file2 = $request->file2->getClientOriginalName();
+            // }
 
-            if($request->file3) {
-                $fileName3 = time() . $request->file3->getClientOriginalName();
-                Storage::disk('public')->put('files/' . $fileName3, File::get($request->file3));
-                $filePath3 = 'storage/files/' . $fileName3;
-                $newDocument->file3 = $filePath3;
-                $newDocument->to_file3 = $request->file3->getClientOriginalName();
-            }
+            // if($request->file3) {
+            //     $fileName3 = time() . $request->file3->getClientOriginalName();
+            //     Storage::disk('public')->put('files/' . $fileName3, File::get($request->file3));
+            //     $filePath3 = 'storage/files/' . $fileName3;
+            //     $newDocument->file3 = $filePath3;
+            //     $newDocument->to_file3 = $request->file3->getClientOriginalName();
+            // }
 
         } 
 
@@ -250,6 +250,72 @@ class DocumentController extends Controller
         return response()->json([
             'message' => 'successfully',
             'document_id' => new DocumentResResource($newDocument)
+        ]);
+    }
+
+    public function document_update( $document_id, Request $request)
+    {
+        $validated = $request->validate([
+            'to_date' => ['date']
+        ]);
+
+        $user = auth()->user()->userorganization;
+        $to_user = UserOrganization::where('user_id', $request->to_user_id)->first();
+
+        $newDocument = Document::find($document_id);
+        $newDocument->to_management_id = $to_user->management_id;
+        $newDocument->to_railway_id = $to_user->railway_id;
+        $newDocument->to_organization_id = $to_user->organization_id;
+        $newDocument->rec_user_id = $request->to_user_id;
+
+        if($request->executor_id)
+            $newDocument->executor_id = $user->user_id;
+
+        if($request->file_status)
+        {
+            $newDocument->file_status = true;
+
+            if($request->file1) {
+                $fileName1 = time() . $request->file1->getClientOriginalName();
+                Storage::disk('public')->put('files/' . $fileName1, File::get($request->file1));
+                $filePath1 = 'storage/files/' . $fileName1;
+                $newDocument->file1 = $filePath1;
+                $newDocument->to_file1 = $request->file1->getClientOriginalName();
+            }
+
+        } 
+
+        $newDocument->comment = $request->comment;
+        $newDocument->type_document_id = $request->type_document_id;
+        $newDocument->comment = $request->comment;
+        $newDocument->to_date = $request->to_date;
+        $newDocument->status = false;
+        $newDocument->save();
+
+        return response()->json([
+            'message' => 'successfully updated'
+        ]);
+    }
+    
+    public function document_delete($document_id)
+    {
+
+        $workers = Worker::where('document_id', $document_id)->get();
+
+        foreach($workers as $item) {
+
+            WorkerLanguage::where('worker_id', $item->id)->delete();
+            WorkerDriverLicense::where('worker_id', $item->id)->delete();
+            Career::where('worker_id', $item->id)->delete();
+            WorkerRelative::where('worker_id', $item->id)->delete();
+    
+            $item->delete();
+        }
+
+        Document::find($document_id)->delete();
+
+        return response()->json([
+            'message' => 'successfully deleted'
         ]);
     }
 
@@ -297,7 +363,7 @@ class DocumentController extends Controller
             'photo' => ['required','file'],
             'phone' => ['required'],
             'sex' => ['required','boolean'],
-            'driver_licenses' => ['required'],
+            'driver_licenses' => ['required']
         ]);
 
         $worker = Worker::create($request->all());

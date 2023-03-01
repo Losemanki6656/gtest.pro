@@ -37,6 +37,10 @@ Route::group([
         Route::post('/send-document/preparing/{to_user_id}', [DocumentController::class, 'send_document_post']);
         Route::put('/send-document/status/{document}', [DocumentController::class, 'end_document']);
 
+        
+        Route::put('/send-document/{document_id}/update', [DocumentController::class, 'document_update']);
+        Route::delete('/send-document/{document_id}/delete', [DocumentController::class, 'document_delete']);
+
         Route::get('/add-worker-to-document', [DocumentController::class, 'add_worker_to_document_GET']);
         Route::post('/add-worker-to-document', [DocumentController::class, 'add_worker_to_document_POST']);
         Route::get('/worker/{worker_id}', [DocumentController::class, 'update_worker_GET']);
