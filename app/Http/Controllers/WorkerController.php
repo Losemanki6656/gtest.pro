@@ -28,6 +28,12 @@ class WorkerController extends Controller
 
     public function create_careers(Request $request)
     {
+        $validated = $request->validate([
+                'date1' => ['required','integer'],
+                'date2' => ['required','integer'],
+                'staff' => ['required']
+        ]);
+
         Career::create($request->all());
 
         return response()->json([
@@ -37,6 +43,12 @@ class WorkerController extends Controller
 
     public function update_careers(Career $career, Request $request)
     {
+        $validated = $request->validate([
+                'date1' => ['required','integer'],
+                'date2' => ['required','integer'],
+                'staff' => ['required']
+        ]);
+
         $career->update($request->all());
 
         return response()->json([
@@ -67,6 +79,12 @@ class WorkerController extends Controller
 
     public function create_relative(Request $request)
     {
+        $validated = $request->validate([
+            'fullname' => ['required'],
+            'birth_place' => ['required'],
+            'post' => ['required']
+        ]);
+
         WorkerRelative::create($request->all());
 
         return response()->json([
@@ -76,6 +94,12 @@ class WorkerController extends Controller
 
     public function update_relative(WorkerRelative $worker_relative, Request $request)
     {
+        $validated = $request->validate([
+            'fullname' => ['required'],
+            'birth_place' => ['required'],
+            'post' => ['required']
+        ]);
+
         $worker_relative->update($request->all());
 
         return response()->json([

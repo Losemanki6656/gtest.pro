@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IncomingDocumentResource extends JsonResource
+class UserDocumentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,9 @@ class IncomingDocumentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type_document' => new TypeDocumentResource($this->type_document),
-            'rec_user' => new UserDocumentResource($this->rec_user),
-            'to_date' => $this->to_date,
-            'status_file' => $this->status_file,
-            'status_send' => $this->status_send,
-            'status_doc' => $this->status_send
+            'name' => $this->name,
+            'photo' => $this->photo,
+            'fullname' => $this->fullname
         ];
     }
 }

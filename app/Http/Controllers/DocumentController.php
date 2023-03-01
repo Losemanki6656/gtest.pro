@@ -48,17 +48,7 @@ use Auth;
 
 class DocumentController extends Controller
 {
-    public function incoming_documents()
-    {
-        if(request('per_page')) $per_page = request('per_page'); else $per_page = 10;
-
-        $documents = Document::paginate($per_page);
-
-        return response()->json([
-            'documents' => new IncomingDocumentCollection($documents)
-        ]);
-    }
-
+  
 
     public function check_document()
     {
@@ -361,7 +351,7 @@ class DocumentController extends Controller
         //     'sex' => ['required','boolean'],
         //     'driver_licenses' => ['required'],
         // ]);
-
+        
         $worker->update($request->all());
 
         if($request->languages)

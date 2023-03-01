@@ -17,8 +17,8 @@ class CreateCareersTable extends Migration
             $table->id();
             $table->bigInteger('worker_id')->unsigned()->index()->nullable();
             $table->integer('sort')->nullable();
-            $table->date('date1')->nullable();
-            $table->date('date2')->nullable();
+            $table->string('date1')->nullable();
+            $table->string('date2')->nullable();
             $table->text('staff')->nullable();
             $table->boolean('status')->default(false);
             $table->foreign('worker_id')->references('id')->on('workers');

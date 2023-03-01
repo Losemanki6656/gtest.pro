@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\IncomingController;
 
 
 
@@ -28,20 +29,15 @@ Route::group([
         Route::get('/cities/filter', [DocumentController::class, 'filter_cities']);
 
         Route::get('/user/profile', [AuthController::class, 'userProfile']);
-        
+
+        //Outgoing massages
         Route::get('/check-document', [DocumentController::class, 'check_document']);
-
-        Route::get('/incoming/documents', [DocumentController::class, 'incoming_messages']);
         Route::get('/outgoing/documents', [DocumentController::class, 'outgoing_messages']);
-
         Route::get('/send-document/{document_id}', [DocumentController::class, 'send_document_ID']);
-
         Route::post('/send-document/preparing/{to_user_id}', [DocumentController::class, 'send_document_post']);
-
         Route::put('/send-document/status/{document}', [DocumentController::class, 'end_document']);
 
         Route::get('/add-worker-to-document', [DocumentController::class, 'add_worker_to_document_GET']);
-
         Route::post('/add-worker-to-document', [DocumentController::class, 'add_worker_to_document_POST']);
         Route::get('/worker/{worker_id}', [DocumentController::class, 'update_worker_GET']);
         Route::put('/worker/{worker}/update', [DocumentController::class, 'update_worker_POST']);
@@ -58,6 +54,9 @@ Route::group([
         Route::post('/worker/relatives/create', [WorkerController::class, 'create_relative']);
         Route::put('/worker/relatives/{worker_relative}/update', [WorkerController::class, 'update_relative']);
         Route::delete('/worker/relatives/{worker_relative}/delete', [WorkerController::class, 'delete_relative']);
+
+        //Incoming massages
+        Route::get('/incoming/documents', [IncomingController::class, 'incoming_messages']);
 
         
         
