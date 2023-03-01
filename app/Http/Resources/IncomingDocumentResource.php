@@ -17,6 +17,7 @@ class IncomingDocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'type_document' => new TypeDocumentResource($this->type_document),
+            'organization' => new OrganizationResource($this->to_organization),
             'rec_user' => new UserDocumentResource($this->rec_user),
             'to_date' => $this->to_date,
             'status_file' => $this->status_file,
