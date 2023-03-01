@@ -35,9 +35,9 @@ Route::group([
         Route::get('/outgoing/documents', [DocumentController::class, 'outgoing_messages']);
         Route::get('/send-document/{document_id}', [DocumentController::class, 'send_document_ID']);
         Route::post('/send-document/preparing/{to_user_id}', [DocumentController::class, 'send_document_post']);
-        Route::put('/send-document/status/{document}', [DocumentController::class, 'end_document']);
 
-        
+        Route::put('/send-document/{document}/finish', [DocumentController::class, 'end_document']);
+
         Route::put('/send-document/{document_id}/update', [DocumentController::class, 'document_update']);
         Route::delete('/send-document/{document_id}/delete', [DocumentController::class, 'document_delete']);
 

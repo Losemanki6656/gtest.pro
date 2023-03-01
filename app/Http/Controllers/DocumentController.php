@@ -138,7 +138,7 @@ class DocumentController extends Controller
         $document->update($request->all());
 
         return response()->json([
-            'message' => 'Successfully updated'
+            'message' => 'Successfully finished'
         ]);
     }
 
