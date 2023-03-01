@@ -14,6 +14,15 @@ class WorkerResource extends JsonResource
      */
     public function toArray($request)
     {
+        if( auth()->user()->hasRole('Admin') ) {
+            $worker_status = $this->status_worker;
+            $message = $this->file2;
+        } else {
+            
+            $worker_status = false;
+            $message = null;
+        }
+
         return [
             'id' => $this->id,
             'photo' => url(asset('storage/' . $this->photo)),
@@ -53,7 +62,10 @@ class WorkerResource extends JsonResource
             'incent' => $this->incent,
             'languages' => LanguageResource::collection($this->languages),
             'driver_licensies' => DriverLicenseResource::collection($this->driver_licensies),
-            'sex' => $this->sex
+            'sex' => $this->sex,
+            'worker_status' => $worker_status,
+            'msg' => $message,
+
         ];
     }
 }

@@ -36,7 +36,6 @@ class CreateWorkersTable extends Migration
             $table->text('institut')->nullable();
             $table->string('speciality')->nullable();
             $table->string('incent')->nullable();
-
             $table->string('department_name')->nullable();
             $table->string('staff_name')->nullable();
             $table->date('birth_date')->nullable();

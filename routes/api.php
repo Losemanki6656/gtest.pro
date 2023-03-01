@@ -53,12 +53,7 @@ Route::group([
         Route::get('/worker/relatives/{worker}', [WorkerController::class, 'relatives']);
         Route::post('/worker/relatives/create', [WorkerController::class, 'create_relative']);
         Route::put('/worker/relatives/{worker_relative}/update', [WorkerController::class, 'update_relative']);
-        Route::delete('/worker/relatives/{worker_relative}/delete', [WorkerController::class, 'delete_relative']);
-
-        //Incoming massages
-        Route::get('/incoming/documents', [IncomingController::class, 'incoming_messages']);
-
-        
+        Route::delete('/worker/relatives/{worker_relative}/delete', [WorkerController::class, 'delete_relative']);        
         
         Route::get('/admin/migrate', function () {
             Schema::disableForeignKeyConstraints();
@@ -66,6 +61,21 @@ Route::group([
             Schema::enableForeignKeyConstraints();
             return true;
         });
+
+    }); 
+
+    Route::group([
+        'middleware' => [
+            'permission:admin'
+            ]
+        ], function () {
+
+        //Incoming massages
+        Route::get('/incoming/documents', [IncomingController::class, 'incoming_messages']);
+        Route::get('/incoming/documents/{document_id}/workers', [IncomingController::class, 'workers']);
+        
+        Route::put('/incoming/worker/update-info/{worker_id}', [IncomingController::class, 'update_message_to_worker']);
+        Route::put('/incoming/worker/ban/{worker}', [IncomingController::class, 'ban_to_worker']);
 
     }); 
     

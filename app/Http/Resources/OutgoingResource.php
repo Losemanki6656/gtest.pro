@@ -21,7 +21,8 @@ class OutgoingResource extends JsonResource
             'to_date' => $this->to_date,
             'status_file' => $this->status_file,
             'status_send' => $this->status_send,
-            'status_doc' => $this->status_send
+            'status_doc' => $this->status_send,
+            'workers' => $this->workers->count()
         ];
     }
 }

@@ -12,6 +12,8 @@ use App\Models\Region;
 use App\Models\City;
 use App\Models\AcademicDegree;
 use App\Models\AcademicTitle;
+use App\Models\Career;
+use App\Models\WorkerRelative;
 
 use App\Models\Language;
 use App\Models\Party;
@@ -384,6 +386,8 @@ class DocumentController extends Controller
     {
         WorkerLanguage::where('worker_id', $worker->id)->delete();
         WorkerDriverLicense::where('worker_id', $worker->id)->delete();
+        Career::where('worker_id', $worker->id)->delete();
+        WorkerRelative::where('worker_id', $worker->id)->delete();
 
         $worker->delete();
 

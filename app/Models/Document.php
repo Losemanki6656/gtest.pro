@@ -21,6 +21,10 @@ class Document extends Model
         return $this->belongsTo(User::class,'send_user_id');
     }
 
+    public function workers() {
+        return $this->hasMany(Worker::class);
+    }
+
     public function executor() {
         return $this->belongsTo(User::class,'executor_id');
     }
