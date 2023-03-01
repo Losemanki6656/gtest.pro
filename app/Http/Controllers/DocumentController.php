@@ -133,9 +133,11 @@ class DocumentController extends Controller
 
     }
 
-    public function end_document(Document $document,Request $request)
+    public function end_document($document,Request $request)
     {   
-        $document->update($request->all());
+        $doc = Document::find($document);
+        $doc->status_send = $request->status_send;
+        $doc->save();
 
         return response()->json([
             'message' => 'Successfully finished'
