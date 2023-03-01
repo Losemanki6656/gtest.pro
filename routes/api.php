@@ -81,6 +81,10 @@ Route::group([
         Route::put('/incoming/worker/update-info/{worker_id}', [IncomingController::class, 'update_message_to_worker']);
         Route::put('/incoming/worker/ban/{worker}', [IncomingController::class, 'ban_to_worker']);
 
+        Route::get('/incoming/document/received-users', [IncomingController::class, 'received_users']);
+        Route::post('/incoming/document/redirect/{document_id}', [IncomingController::class, 'redirect_document']);
+
+
     }); 
     
 });

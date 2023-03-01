@@ -162,6 +162,7 @@ class DocumentController extends Controller
                 
             })
             ->with(['users'])->paginate(10);
+
         $type_documents = TypeDocument::get();
         $educations = Education::get();
         $regions = Region::get();
@@ -223,22 +224,6 @@ class DocumentController extends Controller
                 $newDocument->file1 = $filePath1;
                 $newDocument->to_file1 = $request->file1->getClientOriginalName();
             }
-
-            // if($request->file2) {
-            //     $fileName2 = time() . $request->file2->getClientOriginalName();
-            //     Storage::disk('public')->put('files/' . $fileName2, File::get($request->file2));
-            //     $filePath2 = 'storage/files/' . $fileName2;
-            //     $newDocument->file2 = $filePath2;
-            //     $newDocument->to_file2 = $request->file2->getClientOriginalName();
-            // }
-
-            // if($request->file3) {
-            //     $fileName3 = time() . $request->file3->getClientOriginalName();
-            //     Storage::disk('public')->put('files/' . $fileName3, File::get($request->file3));
-            //     $filePath3 = 'storage/files/' . $fileName3;
-            //     $newDocument->file3 = $filePath3;
-            //     $newDocument->to_file3 = $request->file3->getClientOriginalName();
-            // }
 
         } 
 
