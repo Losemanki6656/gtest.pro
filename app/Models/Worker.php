@@ -78,7 +78,8 @@ class Worker extends Model
 
     public function setFile1Attribute($value)
     {
-        if($value == null)  $this->setPhotoAttribute = ''; 
+        if( $value == null )  
+            $this->setPhotoAttribute = ''; 
         else 
         {
             $attribute_name = "file1";
@@ -98,15 +99,17 @@ class Worker extends Model
 
     public function setOldJobNameAttribute($value)
     {
-        if($value  == "null") {
+        if( $value  == "null" ) {
             $this->attributes['old_job_name'] = null;
-        } else $this->attributes['old_job_name'] = $value;
+        } else 
+            $this->attributes['old_job_name'] = $value;
     }
 
     public function setDelRailCommentAttribute($value)
     {
-        if($value  == "null") {
+        if( $value  == "null" ) {
             $this->attributes['del_rail_comment'] = null;
-        } else $this->attributes['del_rail_comment'] = $value;
+        } else 
+            $this->attributes['del_rail_comment'] = $value;
     }
 }

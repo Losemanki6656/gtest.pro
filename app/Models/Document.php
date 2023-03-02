@@ -21,6 +21,10 @@ class Document extends Model
         return $this->belongsTo(Organization::class,'to_organization_id');
     }
 
+    public function organization() {
+        return $this->belongsTo(Organization::class,'organization_id');
+    }
+
     public function send_user() {
         return $this->belongsTo(User::class,'send_user_id');
     }

@@ -18,6 +18,7 @@ class OutgoingResource extends JsonResource
             'id' => $this->id,
             'type_document' => new TypeDocumentResource($this->type_document),
             'send_user' => new UserDocumentResource($this->send_user),
+            'organization' => new OrganizationResource($this->organization),
             'to_date' => $this->to_date,
             'status_file' => $this->status_file,
             'status_send' => $this->status_send,

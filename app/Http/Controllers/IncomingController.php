@@ -26,7 +26,7 @@ class IncomingController extends Controller
 
         $documents = Document::where('status_send', true)
             ->where('rec_user_id', auth()->user()->id)
-            ->with(['rec_user','type_document'])
+            ->with(['rec_user','type_document','organization'])
             ->paginate($per_page);
 
         return response()->json([
