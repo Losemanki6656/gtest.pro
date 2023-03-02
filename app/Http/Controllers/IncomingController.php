@@ -39,7 +39,7 @@ class IncomingController extends Controller
     {
         if(request('per_page')) $per_page = request('per_page'); else $per_page = 10;
 
-        $workers = Worker::with([
+        $workers = Worker::where('document_id', $document_id)->with([
             'languages',
             'driver_licensies',
             'education',
