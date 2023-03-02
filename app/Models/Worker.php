@@ -92,7 +92,7 @@ class Worker extends Model
     {
         if($value) {
             $this->attributes['rail_status'] = true;
-        }
+        } else  $this->attributes['rail_status'] = false;
     }
 
 
