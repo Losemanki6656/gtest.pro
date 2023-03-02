@@ -94,4 +94,19 @@ class Worker extends Model
             $this->attributes['rail_status'] = true;
         }
     }
+
+
+    public function setOldJobNameAttribute($value)
+    {
+        if($value  == "null") {
+            $this->attributes['old_job_name'] = null;
+        } else $this->attributes['old_job_name'] = $value;
+    }
+
+    public function setDelRailCommentAttribute($value)
+    {
+        if($value  == "null") {
+            $this->attributes['del_rail_comment'] = null;
+        } else $this->attributes['del_rail_comment'] = $value;
+    }
 }
