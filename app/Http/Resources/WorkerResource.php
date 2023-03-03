@@ -60,6 +60,7 @@ class WorkerResource extends JsonResource
             'speciality' => $this->speciality,
             'phone' => $this->phone,
             'incent' => $this->incent,
+            'status' => $this->status,
             'languages' => LanguageResource::collection($this->languages),
             'driver_licensies' => DriverLicenseResource::collection($this->driver_licensies),
             'sex' => $this->sex,
