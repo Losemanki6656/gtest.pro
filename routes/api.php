@@ -83,7 +83,8 @@ Route::group([
 
         Route::get('/incoming/document/received-users', [IncomingController::class, 'received_users']);
         Route::post('/incoming/document/redirect/{document_id}', [IncomingController::class, 'redirect_document']);
-
+               
+        Route::get('/incoming/agreement', [IncomingController::class, 'agreement']);
 
     }); 
     
